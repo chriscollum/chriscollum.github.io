@@ -10,11 +10,11 @@
         $(function () {
             $('#ButtonCal').click(
                 function () {
-                    //取得用戶輸入的參數
+                    //
                     var para = { 'height': $('#txbHeight').val(), 'weight': $('#txbWeight').val() };
-                    //呼叫API
+                    //API
                     ExecuteAPI('Example', 'BMI', para,
-			//呼叫WebAPI成功時運行的Call Back Function
+					//WebAPICall Back Function
                         function (result) {
                             alert(result.Data);
                         }
@@ -28,12 +28,12 @@
     <div class="row" style="margin:10px">
         <div class="col-md-12">
             <div class="form-group">
-                身高:
+                1:
                 <input id="txbHeight" class="form-control" placeholder="請輸入身高" />
-                體重:
+                2:
                 <input id="txbWeight" class="form-control" placeholder="請輸入體重" />
                 <br />
-                <button class="btn btn-primary" id="ButtonCal">計算</button>
+                <button class="btn btn-primary" id="ButtonCal">3</button>
             </div>
         </div>
     </div>
