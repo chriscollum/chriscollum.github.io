@@ -1,41 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title></title>
-	<meta charset="utf-8" />
-    <script src="Scripts/jquery-1.9.1.min.js"></script>
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="Scripts/isRockFx.js"></script>
-    <script>
-        $(function () {
-            $('#ButtonCal').click(
-                function () {
-                    //
-                    var para = { 'height': $('#txbHeight').val(), 'weight': $('#txbWeight').val() };
-                    //API
-                    ExecuteAPI('Example', 'BMI', para,
-					//WebAPICall Back Function
-                        function (result) {
-                            alert(result.Data);
-                        }
-                        );
-                }
-                );
-        });
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+    </style>
 </head>
 <body>
-    <div class="row" style="margin:10px">
-        <div class="col-md-12">
-            <div class="form-group">
-                1:
-                <input id="txbHeight" class="form-control" placeholder="請輸入身高" />
-                2:
-                <input id="txbWeight" class="form-control" placeholder="請輸入體重" />
-                <br />
-                <button class="btn btn-primary" id="ButtonCal">3</button>
-            </div>
-        </div>
-    </div>
+    <h1>Welcome to My Website</h1>
+    <p>This is a simple index file example.</p>
 </body>
 </html>
