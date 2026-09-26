@@ -12,17 +12,92 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            padding-top: 50px;
             margin: 0;
         }
         h1 {
             color: #2c3e50;
         }
+        /* Tab Navigation Container */
+        .tab-menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        /* Style for the Link Tabs */
+        .tab-link {
+            text-decoration: none;
+            color: #2c3e50;
+            background-color: #e0e0e6;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .tab-link:hover {
+            background-color: #d1d1d9;
+        }
+        /* Content Panel Layout */
+        .tab-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        /* CSS Target Magic: Hide sections by default, show when clicked */
+        .tab-content:not(:target) {
+            display: none;
+        }
+        /* Fallback: Make sure the first tab shows up initially if no hash is selected */
+        #home:not(:target) ~ #about:not(:target) ~ #contact:not(:target) {
+            display: block; /* Custom handling usually requires JS, but this pure-CSS trick uses :target */
+        }
     </style>
 </head>
 <body>
+
     <h1>Welcome to My Website</h1>
-    <p>This is a simple index file example.</p>
+    
+    <!-- Tab Links Navigation -->
+    <nav class="tab-menu">
+        <a href="#home" class="tab-link">Home</a>
+        <a href="#about" class="tab-link">About</a>
+        <a href="#contact" class="tab-link">Contact</a>
+    </nav>
+
+    <!-- Tab Contents Container -->
+    <main>
+        <!-- Home Tab -->
+        <div id="home" class="tab-content" style="display: block;">
+            <h2>Home</h2>
+            <p>This is the home tab content.</p>
+        </div>
+
+        <!-- About Tab -->
+        <div id="about" class="tab-content">
+            <h2>About</h2>
+            <p>Learn more about us on this tab.</p>
+        </div>
+
+        <!-- Contact Tab -->
+        <div id="contact" class="tab-content">
+            <h2>Contact</h2>
+            <p>Get in touch via this tab.</p>
+        </div>
+    </main>
+
+    <!-- Simple script to smoothly toggle visibility based on URL hash changes -->
+    <script>
+        const tabs = document.querySelectorAll('.tab-content');
+        window.addEventListener('hashchange', () => {
+            const currentHash = window.location.hash || '#home';
+            tabs.forEach(tab => {
+                tab.style.display = `#${tab.id}` === currentHash ? 'block' : 'none';
+            });
+        });
+    </script>
+
 </body>
 </html>
