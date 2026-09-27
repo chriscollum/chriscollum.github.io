@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christopher Collum | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --tag-bg: #0369a1;
+      --tag-text: #e0f2fe;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    nav {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      list-style: none;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn.active {
+      color: #fff;
+      background-color: var(--border);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 { font-size: 2.25rem; line-height: 1.2; margin-bottom: 1rem; }
+    h2 { font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--accent); }
+    h3 { font-size: 1.15rem; margin-bottom: 0.25rem; }
+    p { color: var(--text-muted); margin-bottom: 1rem; }
+
+    .hero {
+      padding: 2rem 0;
+      text-align: left;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      max-width: 750px;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .contact-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .date-span {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      display: inline-block;
+    }
+
+    ul.experience-details {
+      list-style-position: inside;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    ul.experience-details li {
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="brand">Christopher<span>Collum</span></div>
+      <ul class="nav-links">
+        <li><button class="nav-btn active" onclick="switchTab('home')">Home</button></li>
+        <li><button class="nav-btn" onclick="switchTab('projects')">Projects</button></li>
+        <li><button class="nav-btn" onclick="switchTab('about')">About Me</button></li>
+        <li><button class="nav-btn" onclick="switchTab('blog')">Blog</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TAB 1: HOME PAGE -->
+    <section id="home" class="tab-content active">
+      <div class="hero">
+        <h1>Christopher Collum</h1>
+        <p class="hero-subtitle">
+          Accomplished analytical expert offering over six years of success in bridging the gap between sophisticated data science and corporate objectives[cite: 1]. Demonstrated proficiency in overseeing intricate information lifecycles, operational optimization, and high-impact visualizations[cite: 1].
+        </p>
+        <div class="contact-bar">
+          <span class="contact-item">📍 Raleigh, NC</span>
+          <a class="contact-item" href="mailto:ccollum6@gmail.com">✉️ ccollum6@gmail.com</a>
+          <a class="contact-item" href="https://www.linkedin.com/in/collumchristopher" target="_blank" rel="noopener noreferrer">🔗 LinkedIn Profile</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Core Areas of Expertise</h2>
+        <div class="project-grid">
+          <div>
+            <h3>Data Analysis & Modeling</h3>
+            <p>R, R Markdown, Python, SAS, STATA, SPSS, Advanced Excel modeling, and quantitative biological and retail analytics[cite: 1].</p>
+          </div>
+          <div>
+            <h3>Business Intelligence & Reporting</h3>
+            <p>PowerBI, Tableau, automated reporting pipelines, stakeholder dashboards, and executive-level visualizations[cite: 1].</p>
+          </div>
+          <div>
+            <h3>Data Lifecycle & Quality Control</h3>
+            <p>Large-scale automated data curation, data validation protocols, workflow scaling, and operational analytics[cite: 1].</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PROJECTS -->
+    <section id="projects" class="tab-content">
+      <h2>Featured Projects & Technical Initiatives</h2>
+      <p>Highlighted case studies and analytical pipelines across biochemical, operational, and commercial data.</p>
+      
+      <div class="project-grid">
+        <div class="project-card">
+          <div>
+            <h3>High-Dimensional Metabolomics Pipeline</h3>
+            <p>Built end-to-end quantitative analyses and custom visualizations in R to evaluate large-scale metabolite profiles, enabling data-driven biological insights and improving analysis turnaround times[cite: 1].</p>
+          </div>
+          <div class="badge-group">
+            <span class="badge">R</span>
+            <span class="badge">R Markdown</span>
+            <span class="badge">Quantitative Analysis</span>
+            <span class="badge">High-Dimensional Data</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Automated Data Curation & Verification Protocol</h3>
+            <p>Engineered and optimized automated curation routines verifying and cleaning thousands of complex data points across large batches, significantly eliminating ingestion bottlenecks and safeguarding data integrity[cite: 1].</p>
+          </div>
+          <div class="badge-group">
+            <span class="badge">Data Automation</span>
+            <span class="badge">Quality Control</span>
+            <span class="badge">Pipeline Architecture</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Commercial Logistics & Sales Operations Engine</h3>
+            <p>Formulated tracking systems and financial bookkeeping workflows to direct supply management, cash flow analysis, and revenue operations for retail and art commodities at 15 Sunflowers Studios[cite: 1].</p>
+          </div>
+          <div class="badge-group">
+            <span class="badge">Operations Analytics</span>
+            <span class="badge">Logistics</span>
+            <span class="badge">Financial Modeling</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Enterprise BI & Stakeholder Reporting Suite</h3>
+            <p>Designed scalable reporting frameworks and interactive dashboards using PowerBI and SQL to bridge raw biochemical data with strategic decision-making needs across multi-disciplinary teams[cite: 1].</p>
+          </div>
+          <div class="badge-group">
+            <span class="badge">PowerBI</span>
+            <span class="badge">SQL</span>
+            <span class="badge">Tableau</span>
+            <span class="badge">Executive Dashboards</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: ABOUT ME -->
+    <section id="about" class="tab-content">
+      <h2>Professional Background</h2>
+      <p>A look into my work experience, analytical responsibilities, and formal academic foundation.</p>
+
+      <div class="card">
+        <h2>Experience</h2>
+
+        <div class="timeline-item">
+          <span class="date-span">January 2026 – Present</span>
+          <h3>Management Consultant</h3>
+          <p><strong>15 Sunflowers Studios</strong></p>
+          <ul class="experience-details">
+            <li>Drove revenue growth and optimized customer engagement by managing sales operations for art and retail goods[cite: 1].</li>
+            <li>Orchestrated logistics and operational workflows, ensuring efficient supply management and seamless execution[cite: 1].</li>
+            <li>Managed bookkeeping and documentation, ensuring fiscal accuracy and providing oversight for business operations[cite: 1].</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <span class="date-span">March 2023 – May 2026</span>
+          <h3>Data Analyst II</h3>
+          <p><strong>Metabolon</strong></p>
+          <ul class="experience-details">
+            <li>End-to-End Quantitative Analysis and visualizations in R to evaluate high-dimensional datasets, driving actionable insights and improving operational efficiency[cite: 1].</li>
+            <li>Managed complex project ambiguity to provide critical analytics on schedule, optimizing overall business workflows[cite: 1].</li>
+            <li>Derived actionable insights by synthesizing comprehensive metabolite analysis, supporting data-driven decision-making for complex biochemical studies[cite: 1].</li>
+            <li>Partnered with stakeholders to synchronize project requirements, accelerating timelines and enhancing output quality[cite: 1].</li>
+            <li>Developed and delivered specialized training programs, fostering continuous professional development and cross-functional knowledge sharing[cite: 1].</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <span class="date-span">July 2019 – February 2023</span>
+          <h3>Data Analyst I</h3>
+          <p><strong>Metabolon</strong></p>
+          <ul class="experience-details">
+            <li>Leveraged R programming to conduct large-scale analysis on complex datasets, validating critical metrics across thousands of data points[cite: 1].</li>
+            <li>Streamlined data quality by executing rigorous verification and correction protocols for complex information streams[cite: 1].</li>
+            <li>Contributed to the development and optimization of automated curation systems, improving processing speed and reliability[cite: 1].</li>
+            <li>Proactively identified and mitigated data acquisition issues, ensuring high integrity and consistency in final outputs[cite: 1].</li>
+            <li>Cultivated cross-functional partnerships to maintain project alignment and ensure timely delivery of objectives[cite: 1].</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Education</h2>
+
+        <div class="timeline-item">
+          <span class="date-span">October 2023 – December 2025</span>
+          <h3>Master of Business Administration – Data Analytics</h3>
+          <p>University of North Alabama[cite: 1]</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="date-span">August 2021 – May 2023</span>
+          <h3>Master of Science – Applied Statistics</h3>
+          <p>Michigan Technological University[cite: 1]</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="date-span">August 2014 – May 2019</span>
+          <h3>Bachelor of Science – Mathematics &amp; Bachelor of Science – Statistics</h3>
+          <p>North Carolina State University[cite: 1]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: BLOG -->
+    <section id="blog" class="tab-content">
+      <h2>Blogger Feed & Profile</h2>
+      <p>Embedded view of my Blogger profile and published posts.</p>
+      
+      <div class="blog-container">
+        <div class="iframe-wrapper">
+          <iframe 
+            src="https://www.blogger.com" 
+            title="Blogger Profile Embed" 
+            sandbox="allow-scripts allow-same-origin allow-popups">
+          </iframe>
+        </div>
+        <p style="font-size: 0.85rem;">
+          <em>Note: Replace the <code>src="https://www.blogger.com"</code> attribute with your direct Blogger profile or blog URL (e.g., <code>https://yourusername.blogspot.com</code>).</em>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Christopher Collum. Hosted on GitHub Pages.</p>
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+
+      const activeBtn = Array.from(buttons).find(btn => 
+        btn.getAttribute('onclick').includes(tabId)
+      );
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      history.replaceState(null, null, `#${tabId}`);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['home', 'projects', 'about', 'blog'].includes(hash)) {
+        switchTab(hash);
+      }
+    });
+  </script>
+</body>
+</html>
