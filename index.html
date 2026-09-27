@@ -229,27 +229,80 @@
       margin-bottom: 0.5rem;
     }
 
-    .blog-container {
-      width: 100%;
+    /* Blog Tab Styling */
+    .blog-header-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .blog-visit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .blog-visit-btn:hover {
+      background: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    .posts-container {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
-    .iframe-wrapper {
-      position: relative;
-      width: 100%;
-      height: 600px;
+    .blog-card {
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      overflow: hidden;
-      background: #ffffff;
+      padding: 1.5rem;
+      transition: border-color 0.2s ease;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .blog-card:hover {
+      border-color: var(--accent);
+    }
+
+    .blog-card h3 a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .blog-card h3 a:hover {
+      color: var(--accent);
+    }
+
+    .post-date {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -281,12 +334,13 @@
       <div class="hero">
         <h1>Christopher Collum</h1>
         <p class="hero-subtitle">
-          Accomplished analytical expert offering over six years of success in bridging the gap between sophisticated data science and corporate objectives. Demonstrated proficiency in overseeing intricate information lifecycles, operational optimization, and high-impact visualizations.
+          Accomplished analytical expert offering over six years of success in bridging the gap between sophisticated data science and corporate objectives[cite: 1]. Demonstrated proficiency in overseeing intricate information lifecycles, operational improvements, and high-impact visualizations[cite: 1].
         </p>
         <div class="contact-bar">
-          <span class="contact-item">📍 Raleigh, NC</span>
-          <a class="contact-item" href="mailto:ccollum6@gmail.com">✉️ ccollum6@gmail.com</a>
-          <a class="contact-item" href="https://www.linkedin.com/in/collumchristopher" target="_blank" rel="noopener noreferrer">🔗 LinkedIn Profile</a>
+          <span class="contact-item">📍 Raleigh, NC[cite: 1]</span>
+          <a class="contact-item" href="mailto:ccollum6@gmail.com">✉️ ccollum6@gmail.com[cite: 1]</a>
+          <a class="contact-item" href="https://www.linkedin.com/in/collumchristopher" target="_blank" rel="noopener noreferrer">🔗 LinkedIn Profile[cite: 1]</a>
+          <a class="contact-item" href="https://collumcolumn.blogspot.com/" target="_blank" rel="noopener noreferrer">✍️ The Collum Column</a>
         </div>
       </div>
 
@@ -294,16 +348,16 @@
         <h2>Core Areas of Expertise</h2>
         <div class="project-grid">
           <div>
-            <h3>Data Analysis & Modeling</h3>
-            <p>R, R Markdown, Python, SAS, STATA, SPSS, Advanced Excel modeling, and quantitative biological and retail analytics[cite: 1].</p>
+            <h3>Data Analysis &amp; Modeling</h3>
+            <p>R, R Markdown, Python, SAS, STATA, SPSS, and quantitative biological and retail analytics[cite: 1].</p>
           </div>
           <div>
-            <h3>Business Intelligence & Reporting</h3>
-            <p>PowerBI, Tableau, automated reporting pipelines, stakeholder dashboards, and executive-level visualizations[cite: 1].</p>
+            <h3>Business Intelligence &amp; Reporting</h3>
+            <p>PowerBI, Tableau, automated reporting pipelines, stakeholder dashboards, and executive reporting[cite: 1].</p>
           </div>
           <div>
-            <h3>Data Lifecycle & Quality Control</h3>
-            <p>Large-scale automated data curation, data validation protocols, workflow scaling, and operational analytics[cite: 1].</p>
+            <h3>Data Management &amp; Governance</h3>
+            <p>Large-scale automated data curation, data validation protocols, workflow scaling, and quality control[cite: 1].</p>
           </div>
         </div>
       </div>
@@ -311,7 +365,7 @@
 
     <!-- TAB 2: PROJECTS -->
     <section id="projects" class="tab-content">
-      <h2>Featured Projects & Technical Initiatives</h2>
+      <h2>Featured Projects &amp; Technical Initiatives</h2>
       <p>Highlighted case studies and analytical pipelines across biochemical, operational, and commercial data.</p>
       
       <div class="project-grid">
@@ -330,8 +384,8 @@
 
         <div class="project-card">
           <div>
-            <h3>Automated Data Curation & Verification Protocol</h3>
-            <p>Engineered and optimized automated curation routines verifying and cleaning thousands of complex data points across large batches, significantly eliminating ingestion bottlenecks and safeguarding data integrity[cite: 1].</p>
+            <h3>Automated Data Curation &amp; Verification Protocol</h3>
+            <p>Engineered and optimized automated curation routines verifying and cleaning thousands of complex data points across large batches, eliminating ingestion bottlenecks and safeguarding data integrity[cite: 1].</p>
           </div>
           <div class="badge-group">
             <span class="badge">Data Automation</span>
@@ -342,7 +396,7 @@
 
         <div class="project-card">
           <div>
-            <h3>Commercial Logistics & Sales Operations Engine</h3>
+            <h3>Commercial Logistics &amp; Sales Operations Engine</h3>
             <p>Formulated tracking systems and financial bookkeeping workflows to direct supply management, cash flow analysis, and revenue operations for retail and art commodities at 15 Sunflowers Studios[cite: 1].</p>
           </div>
           <div class="badge-group">
@@ -354,7 +408,7 @@
 
         <div class="project-card">
           <div>
-            <h3>Enterprise BI & Stakeholder Reporting Suite</h3>
+            <h3>Enterprise BI &amp; Stakeholder Reporting Suite</h3>
             <p>Designed scalable reporting frameworks and interactive dashboards using PowerBI and SQL to bridge raw biochemical data with strategic decision-making needs across multi-disciplinary teams[cite: 1].</p>
           </div>
           <div class="badge-group">
@@ -378,7 +432,7 @@
         <div class="timeline-item">
           <span class="date-span">January 2026 – Present</span>
           <h3>Management Consultant</h3>
-          <p><strong>15 Sunflowers Studios</strong></p>
+          <p><strong>15 Sunflowers Studios</strong>[cite: 1]</p>
           <ul class="experience-details">
             <li>Drove revenue growth and optimized customer engagement by managing sales operations for art and retail goods[cite: 1].</li>
             <li>Orchestrated logistics and operational workflows, ensuring efficient supply management and seamless execution[cite: 1].</li>
@@ -389,7 +443,7 @@
         <div class="timeline-item">
           <span class="date-span">March 2023 – May 2026</span>
           <h3>Data Analyst II</h3>
-          <p><strong>Metabolon</strong></p>
+          <p><strong>Metabolon</strong>[cite: 1]</p>
           <ul class="experience-details">
             <li>End-to-End Quantitative Analysis and visualizations in R to evaluate high-dimensional datasets, driving actionable insights and improving operational efficiency[cite: 1].</li>
             <li>Managed complex project ambiguity to provide critical analytics on schedule, optimizing overall business workflows[cite: 1].</li>
@@ -402,7 +456,7 @@
         <div class="timeline-item">
           <span class="date-span">July 2019 – February 2023</span>
           <h3>Data Analyst I</h3>
-          <p><strong>Metabolon</strong></p>
+          <p><strong>Metabolon</strong>[cite: 1]</p>
           <ul class="experience-details">
             <li>Leveraged R programming to conduct large-scale analysis on complex datasets, validating critical metrics across thousands of data points[cite: 1].</li>
             <li>Streamlined data quality by executing rigorous verification and correction protocols for complex information streams[cite: 1].</li>
@@ -419,32 +473,37 @@
         <div class="timeline-item">
           <span class="date-span">October 2023 – December 2025</span>
           <h3>Master of Business Administration – Data Analytics</h3>
-          <p>University of North Alabama</p>
+          <p>University of North Alabama[cite: 1]</p>
         </div>
 
         <div class="timeline-item">
           <span class="date-span">August 2021 – May 2023</span>
           <h3>Master of Science – Applied Statistics</h3>
-          <p>Michigan Technological University</p>
+          <p>Michigan Technological University[cite: 1]</p>
         </div>
 
         <div class="timeline-item">
           <span class="date-span">August 2014 – May 2019</span>
           <h3>Bachelor of Science – Mathematics &amp; Bachelor of Science – Statistics</h3>
-          <p>North Carolina State University</p>
+          <p>North Carolina State University[cite: 1]</p>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: BLOG -->
+    <!-- TAB 4: BLOG (FEED INTEGRATION) -->
     <section id="blog" class="tab-content">
-      <h2>Blogger Feed & Profile</h2>
-      <p>Embedded view of my Blogger profile and published posts.</p>
-      
-      <div class="blog-container">
-        <div class="iframe-wrapper">
-          <iframe src="https://collumcolumn.blogspot.com/" width="100%" height="600px" style="border:none;"></iframe>
+      <div class="card blog-header-card">
+        <div>
+          <h2>The Collum Column</h2>
+          <p style="margin-bottom: 0;">Discussions on statistics, analytics, operational workflows, and commentary.</p>
         </div>
+        <a class="blog-visit-btn" href="https://collumcolumn.blogspot.com/" target="_blank" rel="noopener noreferrer">
+          Visit collumcolumn.blogspot.com ↗
+        </a>
+      </div>
+
+      <div id="posts-container" class="posts-container">
+        <p id="loading-indicator">Fetching latest posts from The Collum Column...</p>
       </div>
     </section>
   </main>
@@ -476,11 +535,72 @@
       history.replaceState(null, null, `#${tabId}`);
     }
 
+    // JSONP Callback for Blogger Feed
+    function handleBloggerFeed(data) {
+      const container = document.getElementById('posts-container');
+      container.innerHTML = '';
+
+      if (!data || !data.feed || !data.feed.entry || data.feed.entry.length === 0) {
+        container.innerHTML = `
+          <div class="card">
+            <h3>No Published Posts Found</h3>
+            <p>New articles published to <a href="https://collumcolumn.blogspot.com/" target="_blank" style="color:var(--accent);">collumcolumn.blogspot.com</a> will populate here automatically.</p>
+          </div>`;
+        return;
+      }
+
+      data.feed.entry.forEach(entry => {
+        const title = entry.title.$t;
+        const postUrl = entry.link.find(l => l.rel === 'alternate')?.href || 'https://collumcolumn.blogspot.com/';
+        const publishedDate = new Date(entry.published.$t).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        // Generate clean summary text without HTML tags
+        let snippet = '';
+        if (entry.summary && entry.summary.$t) {
+          snippet = entry.summary.$t;
+        } else if (entry.content && entry.content.$t) {
+          snippet = entry.content.$t;
+        }
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = snippet;
+        const cleanSnippet = tempDiv.textContent || tempDiv.innerText || '';
+        const shortSnippet = cleanSnippet.length > 240 ? cleanSnippet.substring(0, 240) + '...' : cleanSnippet;
+
+        const postCard = document.createElement('article');
+        postCard.className = 'blog-card';
+        postCard.innerHTML = `
+          <span class="post-date">${publishedDate}</span>
+          <h3><a href="${postUrl}" target="_blank" rel="noopener noreferrer">${title}</a></h3>
+          <p>${shortSnippet || 'Read the full post on The Collum Column.'}</p>
+          <a class="read-more" href="${postUrl}" target="_blank" rel="noopener noreferrer">Read Full Article →</a>
+        `;
+        container.appendChild(postCard);
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.replace('#', '');
       if (['home', 'projects', 'about', 'blog'].includes(hash)) {
         switchTab(hash);
       }
+
+      // Load Blogger posts via JSONP to bypass CORS and frame restrictions
+      const script = document.createElement('script');
+      script.src = 'https://collumcolumn.blogspot.com/feeds/posts/default?alt=json-in-script&callback=handleBloggerFeed&max-results=8';
+      script.onerror = () => {
+        const container = document.getElementById('posts-container');
+        container.innerHTML = `
+          <div class="card">
+            <h3>Feed Preview</h3>
+            <p>Direct live previews are constrained by browser security. Read posts directly on the main site:</p>
+            <a class="blog-visit-btn" href="https://collumcolumn.blogspot.com/" target="_blank" rel="noopener noreferrer">Open The Collum Column ↗</a>
+          </div>`;
+      };
+      document.body.appendChild(script);
     });
   </script>
 </body>
