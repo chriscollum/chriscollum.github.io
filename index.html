@@ -340,6 +340,83 @@
       margin-bottom: 0.5rem;
     }
 
+    /* Joke Simulator Styles */
+    .joke-card {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .joke-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .joke-prompt {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text);
+      min-height: 2.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .joke-punchline {
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      min-height: 1.8rem;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.25s ease-in-out;
+    }
+
+    .joke-punchline.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .joke-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .joke-btn {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .joke-btn:hover {
+      background: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    .joke-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .joke-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent);
+    }
+
     /* Blog Tab Styling */
     .blog-header-card {
       display: flex;
@@ -481,7 +558,7 @@
       <p>Highlighted repositories, analytical pipelines, and case studies across biochemical, operational, and commercial data.</p>
       
       <div class="project-grid">
-        <!-- GitHub Repositories Card (Positioned First) -->
+        <!-- GitHub Repositories Card -->
         <div class="github-card">
           <div class="github-header">
             <div>
@@ -616,6 +693,20 @@
           <p>North Carolina State University</p>
         </div>
       </div>
+
+      <!-- RANDOM JOKE SIMULATOR (Positioned at Bottom of About Tab) -->
+      <div class="joke-card">
+        <div class="joke-header">
+          <h3 style="color: var(--accent); margin-bottom: 0;">🎲 Random Joke Generator</h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Data &amp; Developer Edition</span>
+        </div>
+        <div class="joke-prompt" id="joke-setup">Press below to load a joke!</div>
+        <div class="joke-punchline" id="joke-punchline"></div>
+        <div class="joke-actions">
+          <button class="joke-btn joke-btn-secondary" id="punchline-btn" onclick="revealPunchline()">Reveal Punchline</button>
+          <button class="joke-btn" onclick="generateNewJoke()">Next Joke ↻</button>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 4: BLOG (FEED INTEGRATION) -->
@@ -642,6 +733,44 @@
 
   <script>
     const GITHUB_USERNAME = 'chriscollum';
+
+    /* JOKE SIMULATOR ENGINE */
+    const jokes = [
+      { setup: "Why do programmers prefer dark mode?", punchline: "Because light attracts bugs!" },
+      { setup: "There are 10 types of people in the world...", punchline: "Those who understand binary, and those who don't." },
+      { setup: "Why was the statistician confident their house wouldn't burn down?", punchline: "Because the probability of having two house fires was virtually zero!" },
+      { setup: "Why did the SQL developer walk out of the bar?", punchline: "Because there were no tables left to join." },
+      { setup: "How do you tell an extroverted statistician from an introverted one?", punchline: "They look at YOUR shoes while talking to you." },
+      { setup: "Why don't bachelors like Git?", punchline: "They are afraid of commit." },
+      { setup: "What is a data scientist's favorite pick-up line?", punchline: "Are you an outlier? Because you're breaking all my models." }
+    ];
+
+    let currentJokeIndex = -1;
+
+    function generateNewJoke() {
+      let nextIndex;
+      do {
+        nextIndex = Math.floor(Math.random() * jokes.length);
+      } while (jokes.length > 1 && nextIndex === currentJokeIndex);
+
+      currentJokeIndex = nextIndex;
+      const joke = jokes[currentJokeIndex];
+      
+      const setupEl = document.getElementById('joke-setup');
+      const punchEl = document.getElementById('joke-punchline');
+      const punchBtn = document.getElementById('punchline-btn');
+
+      setupEl.textContent = joke.setup;
+      punchEl.textContent = joke.punchline;
+      punchEl.classList.remove('visible');
+      punchBtn.style.display = 'inline-block';
+    }
+
+    function revealPunchline() {
+      const punchEl = document.getElementById('joke-punchline');
+      punchEl.classList.add('visible');
+      document.getElementById('punchline-btn').style.display = 'none';
+    }
 
     function switchTab(tabId) {
       const tabs = document.querySelectorAll('.tab-content');
@@ -761,6 +890,7 @@
         switchTab(hash);
       }
 
+      generateNewJoke();
       loadGitHubRepos();
 
       const script = document.createElement('script');
