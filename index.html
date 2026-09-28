@@ -155,10 +155,12 @@
       color: var(--text);
       text-decoration: none;
       font-size: 0.9rem;
+      transition: all 0.2s ease;
     }
 
     .contact-item:hover {
       border-color: var(--accent);
+      color: var(--accent);
     }
 
     .project-grid {
@@ -175,6 +177,115 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    /* GitHub Repos Card Styling */
+    .github-card {
+      grid-column: 1 / -1;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .github-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .github-header h3 {
+      font-size: 1.25rem;
+      color: var(--text);
+    }
+
+    .github-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .github-link-btn:hover {
+      background: var(--accent);
+      color: #0f172a;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .repo-item {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s;
+    }
+
+    .repo-item:hover {
+      border-color: var(--accent);
+    }
+
+    .repo-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .repo-title a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .repo-title a:hover {
+      text-decoration: underline;
+    }
+
+    .repo-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      flex-grow: 1;
+    }
+
+    .repo-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .repo-lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .repo-lang-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
     }
 
     .badge-group {
@@ -339,6 +450,7 @@
         <div class="contact-bar">
           <span class="contact-item">📍 Raleigh, NC</span>
           <a class="contact-item" href="mailto:ccollum6@gmail.com">✉️ ccollum6@gmail.com</a>
+          <a class="contact-item" href="https://github.com/chriscollum" target="_blank" rel="noopener noreferrer">🐙 GitHub Profile</a>
           <a class="contact-item" href="https://www.linkedin.com/in/collumchristopher" target="_blank" rel="noopener noreferrer">🔗 LinkedIn Profile</a>
           <a class="contact-item" href="https://collumcolumn.blogspot.com/" target="_blank" rel="noopener noreferrer">✍️ The Collum Column</a>
         </div>
@@ -366,9 +478,25 @@
     <!-- TAB 2: PROJECTS -->
     <section id="projects" class="tab-content">
       <h2>Featured Projects &amp; Technical Initiatives</h2>
-      <p>Highlighted case studies and analytical pipelines across biochemical, operational, and commercial data.</p>
+      <p>Highlighted repositories, analytical pipelines, and case studies across biochemical, operational, and commercial data.</p>
       
       <div class="project-grid">
+        <!-- GitHub Repositories Card (Positioned First) -->
+        <div class="github-card">
+          <div class="github-header">
+            <div>
+              <h3>Open Source &amp; GitHub Repositories</h3>
+              <p style="margin-bottom: 0;">Public codebases, analytical packages, and data tools.</p>
+            </div>
+            <a id="github-profile-link" class="github-link-btn" href="https://github.com/chriscollum" target="_blank" rel="noopener noreferrer">
+              View on GitHub ↗
+            </a>
+          </div>
+          <div id="repo-container" class="repo-grid">
+            <p style="color: var(--text-muted); grid-column: 1 / -1;">Loading public repositories...</p>
+          </div>
+        </div>
+
         <div class="project-card">
           <div>
             <h3>High-Dimensional Metabolomics Pipeline</h3>
@@ -513,6 +641,8 @@
   </footer>
 
   <script>
+    const GITHUB_USERNAME = 'chriscollum';
+
     function switchTab(tabId) {
       const tabs = document.querySelectorAll('.tab-content');
       tabs.forEach(tab => tab.classList.remove('active'));
@@ -535,7 +665,6 @@
       history.replaceState(null, null, `#${tabId}`);
     }
 
-    // JSONP Callback for Blogger Feed
     function handleBloggerFeed(data) {
       const container = document.getElementById('posts-container');
       container.innerHTML = '';
@@ -558,7 +687,6 @@
           day: 'numeric'
         });
 
-        // Generate clean summary text without HTML tags
         let snippet = '';
         if (entry.summary && entry.summary.$t) {
           snippet = entry.summary.$t;
@@ -582,13 +710,59 @@
       });
     }
 
+    async function loadGitHubRepos() {
+      const repoContainer = document.getElementById('repo-container');
+      const profileBtn = document.getElementById('github-profile-link');
+      if (profileBtn) profileBtn.href = `https://github.com/${GITHUB_USERNAME}`;
+
+      try {
+        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`);
+        if (!response.ok) throw new Error('Failed to fetch repositories');
+        
+        const repos = await response.json();
+        repoContainer.innerHTML = '';
+
+        if (!repos || repos.length === 0) {
+          repoContainer.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No public repositories available.</p>';
+          return;
+        }
+
+        repos.forEach(repo => {
+          const item = document.createElement('div');
+          item.className = 'repo-item';
+          item.innerHTML = `
+            <div>
+              <div class="repo-title">
+                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>
+              </div>
+              <p class="repo-desc">${repo.description || 'No description provided.'}</p>
+            </div>
+            <div class="repo-meta">
+              ${repo.language ? `<span class="repo-lang"><span class="repo-lang-dot"></span>${repo.language}</span>` : ''}
+              <span>★ ${repo.stargazers_count}</span>
+            </div>
+          `;
+          repoContainer.appendChild(item);
+        });
+      } catch (err) {
+        repoContainer.innerHTML = `
+          <div style="grid-column: 1 / -1;">
+            <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Could not load live repositories directly.</p>
+            <a href="https://github.com/${GITHUB_USERNAME}" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-size: 0.9rem;">
+              View repositories on GitHub ↗
+            </a>
+          </div>`;
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.replace('#', '');
       if (['home', 'projects', 'about', 'blog'].includes(hash)) {
         switchTab(hash);
       }
 
-      // Load Blogger posts via JSONP to bypass CORS and frame restrictions
+      loadGitHubRepos();
+
       const script = document.createElement('script');
       script.src = 'https://collumcolumn.blogspot.com/feeds/posts/default?alt=json-in-script&callback=handleBloggerFeed&max-results=8';
       script.onerror = () => {
