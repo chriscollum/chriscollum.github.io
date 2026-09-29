@@ -90,6 +90,18 @@
       background-color: var(--border);
     }
 
+    /* Mobile Menu Toggle Button (Hidden on Desktop) */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.25rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
     main {
       flex: 1;
       max-width: 1000px;
@@ -494,6 +506,46 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+
+    /* Media Query for Mobile Devices */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 0.75rem 1rem;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin-top: 0.75rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .nav-links.mobile-open {
+        display: flex;
+      }
+
+      .nav-btn {
+        width: 100%;
+        text-align: left;
+        padding: 0.75rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .hero {
+        padding: 1rem 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -501,7 +553,8 @@
   <header>
     <nav>
       <div class="brand">Christopher<span>Collum</span></div>
-      <ul class="nav-links">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation">☰</button>
+      <ul id="nav-links" class="nav-links">
         <li><button class="nav-btn active" onclick="switchTab('home')">Home</button></li>
         <li><button class="nav-btn" onclick="switchTab('projects')">Projects</button></li>
         <li><button class="nav-btn" onclick="switchTab('about')">About Me</button></li>
@@ -709,6 +762,12 @@
   <script>
     const GITHUB_USERNAME = 'chriscollum';
 
+    /* MOBILE MENU TOGGLE */
+    function toggleMobileMenu() {
+      const navLinks = document.getElementById('nav-links');
+      navLinks.classList.toggle('mobile-open');
+    }
+
     /* JOKE SIMULATOR ENGINE */
     const jokes = [
       { setup: "Why do programmers prefer dark mode?", punchline: "Because light attracts bugs!" },
@@ -764,6 +823,12 @@
       );
       if (activeBtn) {
         activeBtn.classList.add('active');
+      }
+
+      // Automatically close the mobile menu when a tab is switched
+      const navLinks = document.getElementById('nav-links');
+      if (navLinks) {
+        navLinks.classList.remove('mobile-open');
       }
 
       history.replaceState(null, null, `#${tabId}`);
